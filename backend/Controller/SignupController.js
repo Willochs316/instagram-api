@@ -9,26 +9,19 @@ const getSignup = asyncHandler(async (req, res) => {
 });
 
 const setSignup = asyncHandler(async (req, res) => {
-  console.log(req.body, 'request');
+  try {
+    const signupUser = await SignUp.create({
+      mobileNumberOrEmail: req.body.mobileNumberOrEmail,
+      fullName: req.body.fullName,
+      username: req.body.username,
+      password: req.body.password,
+      text: req.body.text,
+    });
 
-  // const payload = {
-  //   mobileNumberOrEmail: req.body.mobileNumberOrEmail,
-  //   fullName: req.body.fullName,
-  //   username: req.body.username,
-  //   password: req.body.password,
-  //   text: req.body.text
-  // };
-
-  const signupUser = await SignUp.create({
-    mobileNumberOrEmail: req.body.mobileNumberOrEmail,
-    fullName: req.body.fullName,
-    username: req.body.username,
-    password: req.body.password,
-    text: req.body.text,
-  });
-
-  res.status(200).json(signupUser);
-  console.log(signupUser, 'enter');
+    res.status(200).json(signupUser);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
 });
 
 const updateSignup = asyncHandler(async (req, res) => {
