@@ -17,7 +17,10 @@ app.use(
 );
 app.use(cors())
 
+app.use('/users',  require('./routes/users.routes'))
+
 app.use('/api/user', require('./routes/SignupUserRoutes'));
+
 
 app.use(errorHandler);
 

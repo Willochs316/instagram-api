@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler');
 
-const SignUp = require('../Models/SignupModels');
+const SignUp = require('../Models/users.model');
 
 const getSignup = asyncHandler(async (req, res) => {
   const signupUsers = await SignUp.find();
@@ -9,13 +9,33 @@ const getSignup = asyncHandler(async (req, res) => {
 });
 
 const setSignup = asyncHandler(async (req, res) => {
+ 
+
+  // if (
+  //   !req.body.mobileNumberOrEmail ||
+  //   !req.body.fullName ||
+  //   !req.body.username ||
+  //   !req.body.password
+  // ) {
+  //   res.status(400);
+  //   throw new Error('Please add a text field');
+  // }
+
+  // const signupUser = await SignUp.create({
+  //   mobileNumberOrEmail: req.body.mobileNumberOrEmail,
+  //   fullName: req.body.fullName,
+  //   username: req.body.username,
+  //   password: req.body.password
+  // });
+
+  // res.status(200).json(signupUser);
+
   try {
     const signupUser = await SignUp.create({
       mobileNumberOrEmail: req.body.mobileNumberOrEmail,
       fullName: req.body.fullName,
       username: req.body.username,
-      password: req.body.password,
-      text: req.body.text,
+      password: req.body.password
     });
 
     res.status(200).json(signupUser);

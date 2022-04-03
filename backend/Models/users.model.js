@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const signupSchema = mongoose.Schema(
+const userSchema = mongoose.Schema(
   {
     mobileNumberOrEmail: {
       type: String,
@@ -18,16 +18,13 @@ const signupSchema = mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
+      required: [true, 'Please add a password'],
     },
-      text: {
-      type: String,
-      required: [false, 'Please add a text value'],
-    },
+  
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model('SignUp', signupSchema);
+module.exports = mongoose.model('User', userSchema);
