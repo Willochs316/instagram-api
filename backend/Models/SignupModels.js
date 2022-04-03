@@ -22,7 +22,7 @@ const signupSchema = mongoose.Schema(
     },
       text: {
       type: String,
-      required: [true, 'Please add a text value'],
+      required: [false, 'Please add a text value'],
     },
   },
   {

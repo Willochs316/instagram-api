@@ -1,5 +1,6 @@
 const express = require('express');
 const colors = require('colors');
+const cors = require('cors')
 const dotenv = require('dotenv').config();
 const { errorHandler } = require('./Middleware/ErrorMiddleware');
 const connectDB = require('./config/db');
@@ -14,8 +15,9 @@ app.use(
     extended: false,
   })
 );
+app.use(cors())
 
-app.use('/api/userSignup', require('./routes/SignupUserRoutes'));
+app.use('/api/user', require('./routes/SignupUserRoutes'));
 
 app.use(errorHandler);
 
