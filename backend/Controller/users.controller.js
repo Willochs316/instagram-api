@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcryptjs');
 const UserModel = require('../Models/users.model');
-const usersModel = require('../Models/users.model');
 
 const createUser = asyncHandler(async (req, res) => {
   try {
@@ -21,7 +20,7 @@ const createUser = asyncHandler(async (req, res) => {
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-
+    //create a new user and replace password with hashPassword
     const user = new UserModel({
       ...req.body,
       password: hashedPassword,
@@ -43,8 +42,10 @@ const updateUser = asyncHandler(async (req, res) => {
   try {
     const { mobileNumberOrEmail, password } = req.body;
 
-    const user = await usersModel.findOne({ mobileNumberOrEmail });
+    //check the email
+    const user = await UserModel.findOne({ mobileNumberOrEmail });
 
+    //compare the passwords
     if (user && (await bcrypt.compare(password, user.password))) {
       res.json({
         _id: user.userId,
